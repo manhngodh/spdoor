@@ -5,9 +5,9 @@ import shutil
 
 number_images = 50
 root_folder = os.path.dirname(os.path.abspath(__file__))
-category = 'spoof'
-source_folder_path = 'D:\\Dataset\\' + category
-destination_folder_path = 'D:\\solution_face_spoofing\\spoofing_\\data\\test\\' + category
+category = 'live'
+source_folder_path = 'tmp/' + category
+destination_folder_path = 'data/test/' + category
 # source_folder_path = 'D:\\Dataset\\spoof'
 # destination_folder_path = 'D:\\solution_face_spoofing\\spoofing_\\data\\test\\spoof'
 os.makedirs(destination_folder_path, exist_ok=True)
