@@ -24,8 +24,8 @@ ssl._create_default_https_context = ssl._create_unverified_context
 # Load du lieu
 print("Load Data....")
 # Load data
-PATH = '/media/data/manh-nx/spoofing_/dataset_wis'
-PATH2 = '/media/data/manh-nx/spoofing_/data'
+PATH = 'dataset_wis'
+PATH2 = 'data'
 
 train_dir = os.path.join(PATH2, 'train_224')
 validation_dir = os.path.join(PATH2, 'test_224')
@@ -62,7 +62,9 @@ train_datagen = ImageDataGenerator(
     rescale=1. / 255,
     shear_range=0.2,
     zoom_range=0.2,
-    horizontal_flip=True
+    horizontal_flip=True,
+    brightness_range=0.2,
+    rotation_range=0.1,
 )
 
 test_datagen = ImageDataGenerator(rescale=1. / 255)
