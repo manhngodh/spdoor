@@ -4,11 +4,11 @@ import os
 
 import cv2
 
-IMG_WIDTH = 320
-IMG_HEIGHT = 180
+IMG_WIDTH = 224
+IMG_HEIGHT = 224
 
-source_data_folder = '/media/data/manh-nx/spoofing_/data/'
-destination_folder_scaled = '/media/data/manh-nx/spoofing_/data/'
+source_data_folder = 'data/'
+destination_folder_scaled = 'data/'
 train_test_sets = ['test', 'train']
 categories = ['live', 'spoof']
 
