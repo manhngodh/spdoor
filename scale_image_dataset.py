@@ -4,8 +4,9 @@ import os
 
 import cv2
 
-IMG_WIDTH = 224
-IMG_HEIGHT = 224
+# IMG_WIDTH = 224
+# IMG_HEIGHT = 224
+IMG_SIZE = 224
 
 source_data_folder = 'data/'
 destination_folder_scaled = 'data/'
@@ -18,14 +19,14 @@ def resize_image_dataset(file_path):
     image = cv2.imread(file_path)
 
     # Resize
-    image = cv2.resize(image, dsize=(IMG_WIDTH, IMG_HEIGHT))
+    image = cv2.resize(image, dsize=(IMG_SIZE, IMG_SIZE))
 
     file_name = os.path.basename(file_path)
     normpath = os.path.normpath(file_path)
     sep_directories = normpath.split(os.sep)
     # folder_name = os.path.basename(os.path.dirname(file_path))
     # print(file_name, folder_name)
-    dst_path = os.path.join(destination_folder_scaled, f'{sep_directories[-3]}_{IMG_WIDTH}x{IMG_HEIGHT}', f'{sep_directories[-2]}')
+    dst_path = os.path.join(destination_folder_scaled, f'{sep_directories[-3]}_{IMG_SIZE}', f'{sep_directories[-2]}')
     print(dst_path)
     os.makedirs(dst_path, exist_ok=True)
     cv2.imwrite(os.path.join(dst_path, file_name), image)
