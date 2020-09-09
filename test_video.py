@@ -38,7 +38,7 @@ if __name__ == '__main__':
         net_out_value = model.predict(img_pred)
         if net_out_value[0][0] > 0.5:
             print(net_out_value, 'spoof')
-            cv2.imwrite(f'tmp/{time.time()}.jpg', frame)
+            cv2.imwrite(f'tmp/{round(time.time()*1000)}.jpg', frame)
         # Display the resulting frame
         cv2.imshow('frame', frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
