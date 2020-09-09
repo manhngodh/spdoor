@@ -17,9 +17,9 @@ total = len(os.listdir(source_folder_path))
 test_amount = 0.4 * total
 for i in range(int(test_amount)):
     print(i)
-    source_path = random.choice(glob.glob(source_folder_path + '\\*'))  # change dir name to whatever
+    source_path = random.choice(glob.glob(source_folder_path + '/*'))  # change dir name to whatever
     dest = shutil.move(source_path, destination_folder_path)
 
-for file_path in glob.glob(source_folder_path + '\\*'):
+for file_path in glob.glob(source_folder_path + '/*'):
     train_path = destination_folder_path.replace('test', 'train')
     dest = shutil.move(file_path, train_path)
