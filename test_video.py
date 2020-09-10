@@ -8,12 +8,15 @@ import time
 
 from config import IMG_HEIGHT, IMG_WIDTH
 from model.livenessnet import LivenessNet
+from utils.detections import pad_input_image, recover_pad_output, load_yaml
 
 
 class TestLiveness:
     def __init__(self):
         backbone = 'mobilenetv3_small'
         self.model = LivenessNet(backbone)
+        self.cfg = load_yaml('./configs/retinaface_mbv2.yaml')
+        self.detection_model = tf.saved_model.load('saved_model/detection_model')
 
         try:
             # latest = os.path.join('trained_models', backbone, 'cp-05.ckpt')
@@ -35,6 +38,18 @@ class TestLiveness:
                 ret, frame = cap.read()
 
                 img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                img = np.float32(img.copy())
+
+                img_detection, pad_params = pad_input_image(img, max_steps=max(self.cfg['steps']))
+
+                # run model
+                outputs = self.detection_model(img_detection[np.newaxis, ...]).numpy()
+
+                # recover padding effect
+                outputs = recover_pad_output(outputs, pad_params)
+                if len(outputs) != 1:
+                    print('no face')
+                    continue
 
                 img_pred = cv2.resize(img, (IMG_HEIGHT, IMG_WIDTH))
                 img_pred = (img_pred / 255.0)
@@ -54,7 +69,7 @@ class TestLiveness:
                 break
 
 
-train_test_sets = ['live', 'spoof']
+train_test_sets = ['spoof']
 source_data_folder = 'data/videos'
 destination_data_folder = 'tmp'
 

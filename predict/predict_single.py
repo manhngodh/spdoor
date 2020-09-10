@@ -1,17 +1,11 @@
 import os
 
 import cv2
-import matplotlib
 import numpy as np
 
-from config import IMG_HEIGHT, IMG_WIDTH
 from model.livenessnet import LivenessNet
-from model.mobilenetv3.mobilenetv3_factory import build_mobilenetv3
 import matplotlib.pyplot as plt
 import tensorflow as tf
-from sklearn.metrics import confusion_matrix
-
-from utils import plot_confusion_matrix
 
 colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 

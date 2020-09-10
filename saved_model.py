@@ -34,5 +34,5 @@ net_out_value = model.predict(np.random.rand(1, 224, 224, 3))
 net_out_value = np.squeeze(net_out_value)
 print(net_out_value)
 
-model.save("saved_model/my_model")
-# model.save('my_model.h5')
+model.save("saved_model/spoof_model")
+# model.save('spoof_model.h5')

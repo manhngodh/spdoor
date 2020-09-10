@@ -1,23 +1,16 @@
-import math
 import os
-import tempfile
 
-import numpy as np
 from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-from config import IMG_HEIGHT, IMG_WIDTH, CLASS_NAMES, BATCH_SIZE, EPOCH
+from config import IMG_HEIGHT, IMG_WIDTH, BATCH_SIZE, EPOCH
 from metrics import METRICS
 from model.livenessnet import LivenessNet
-import matplotlib.pyplot as plt
 
 import ssl
 import tensorflow as tf
 
 print(tf.version.VERSION)
-
-from model.mobilenetv3.mobilenetv3_factory import build_mobilenetv3
-from utils import show_batch_binary, show_batch, plot_cm
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -135,7 +128,6 @@ history = model.fit_generator(
     validation_data=validation_generator,
     validation_steps=total_val // BATCH_SIZE
 )
-from keras.utils import to_categorical
 
 # x, y = zip(*(validation_generator[i] for i in range(len(validation_generator))))
 # x_val = np.vstack(x)
@@ -165,6 +157,6 @@ from keras.utils import to_categorical
 #     model.load_weights(checkpoint_path)
 # except:
 #     print("No weight file!")
-# model.save("saved_model/my_model")
+# model.save("saved_model/spoof_model")
 #
 # print("Finish model!")

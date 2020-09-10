@@ -16,10 +16,10 @@ class LivenessNet(Model):
             self.backbone = tf.keras.applications.mobilenet_v2.MobileNetV2(include_top=False, weights='imagenet')
         elif backbone == 'mobilenetv3_large':
             from model.mobilenetv3_new.mobilenet_v3_large import MobileNetV3_Large
-            self.backbone = MobileNetV3_Large((IMG_HEIGHT, IMG_WIDTH, 3), 1, include_top=False).build(plot=True)
+            self.backbone = MobileNetV3_Large((IMG_HEIGHT, IMG_WIDTH, 3), 1, include_top=False).build(plot=False)
         elif backbone == 'mobilenetv3_small':
             from model.mobilenetv3_new.mobilenet_v3_small import MobileNetV3_Small
-            self.backbone = MobileNetV3_Small((IMG_HEIGHT, IMG_WIDTH, 3), 1, include_top=False).build(plot=True)
+            self.backbone = MobileNetV3_Small((IMG_HEIGHT, IMG_WIDTH, 3), 1, include_top=False).build(plot=False)
         elif backbone == 'resnet50':
             self.backbone = tf.keras.applications.resnet50.ResNet50(include_top=False, weights='imagenet')
         else:
