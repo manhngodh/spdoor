@@ -17,16 +17,16 @@ class TestLiveness:
         self.model = LivenessNet(backbone)
         self.cfg = load_yaml('./configs/retinaface_mbv2.yaml')
         self.detection_model = tf.saved_model.load('saved_model/detection_model')
-
-        try:
-            # latest = os.path.join('trained_models', backbone, 'cp-05.ckpt')
-
-            latest_path = os.path.join('trained_models', backbone)
-            latest = tf.train.latest_checkpoint(latest_path)
-            print('latest', latest)
-            self.model.load_weights(latest)
-        except:
-            raise Exception("No weight file!")
+        self.model.load('saved_model/spoof_model')
+        # try:
+        #     # latest = os.path.join('trained_models', backbone, 'cp-05.ckpt')
+        #
+        #     latest_path = os.path.join('trained_models', backbone)
+        #     latest = tf.train.latest_checkpoint(latest_path)
+        #     print('latest', latest)
+        #     self.model.load_weights(latest)
+        # except:
+        #     raise Exception("No weight file!")
 
     def run_(self, video_path, true_label):
         print(video_path, true_label)
