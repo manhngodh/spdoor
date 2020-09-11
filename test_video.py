@@ -1,5 +1,6 @@
 import glob
 import os
+import shutil
 
 import numpy as np
 import cv2
@@ -47,11 +48,13 @@ class TestLiveness:
 
                 # recover padding effect
                 outputs = recover_pad_output(outputs, pad_params)
+                # print(len(outputs))
                 if len(outputs) != 1:
-                    print('no face')
+                    # print('no face')
                     continue
 
                 img_pred = cv2.resize(img, (IMG_HEIGHT, IMG_WIDTH))
+                # cv2.imwrite(f'x1/{round(time.time() * 1000)}.jpg', cv2.cvtColor(img_pred, cv2.COLOR_RGB2BGR))
                 img_pred = (img_pred / 255.0)
 
                 img_pred = np.expand_dims(img_pred, axis=0)
@@ -60,10 +63,14 @@ class TestLiveness:
                     predicted_label = 'spoof'
                 else:
                     predicted_label = 'live'
-
+                print(predicted_label)
                 if true_label != predicted_label:
                     print(net_out_value, 'wrong prediction')
                     cv2.imwrite(f'{destination_data_folder}/{true_label}/{round(time.time() * 1000)}.jpg', frame)
+
+                cv2.imshow('Windows', frame)
+                if cv2.waitKey(1) == 27:
+                    exit(0)
             except Exception as e:
                 print(e)
                 break
@@ -75,8 +82,15 @@ destination_data_folder = 'tmp'
 
 if __name__ == '__main__':
     test_liveness = TestLiveness()
+    shutil.rmtree('tmp/live', ignore_errors=True)
+    shutil.rmtree('tmp/spoof', ignore_errors=True)
+    os.makedirs('tmp/live')
+    os.makedirs('tmp/spoof')
     for label in train_test_sets:
         os.makedirs(os.path.join(destination_data_folder, label), exist_ok=True)
-        path_names = [file for file in glob.glob(os.path.join(source_data_folder, label, "*"))]
+        # path_names = [file for file in glob.glob(os.path.join(source_data_folder, label, "*"))]
+        path_names = [
+            'data/videos/spoof/8.mp4'
+        ]
         for path in path_names:
             test_liveness.run_(path, label)
