@@ -17,7 +17,7 @@ class TestLiveness:
         self.model = LivenessNet(backbone)
         self.cfg = load_yaml('./configs/retinaface_mbv2.yaml')
         self.detection_model = tf.saved_model.load('saved_model/detection_model')
-        self.model.load('saved_model/spoof_model')
+        self.model = tf.keras.models.load_model('saved_model/spoof_model')
         # try:
         #     # latest = os.path.join('trained_models', backbone, 'cp-05.ckpt')
         #
